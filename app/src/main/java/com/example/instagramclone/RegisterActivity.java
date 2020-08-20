@@ -2,7 +2,9 @@ package com.example.instagramclone;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,6 +38,29 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
 
+    //Textwatcher method to disable the button if any of the input is empty.
+    private TextWatcher registerTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            String nameInput = username.getText().toString().trim();
+            String fullNameInput = fullname.getText().toString().trim();
+            String emailInput = email.getText().toString().trim();
+            String passwordInput = password.getText().toString().trim();
+            reg_new_user.setEnabled(!nameInput.isEmpty() && !fullNameInput.isEmpty() && !emailInput.isEmpty() && !passwordInput.isEmpty());
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +73,13 @@ public class RegisterActivity extends AppCompatActivity {
         reg_old_user = findViewById(R.id.btn_old_user);
         progressBar = findViewById(R.id.progress_bar);
         databaseReference = FirebaseDatabase.getInstance().getReference();
+        // To disable the button , if any of the input field is Empty
+        username.addTextChangedListener(registerTextWatcher);
+        fullname.addTextChangedListener(registerTextWatcher);
+        email.addTextChangedListener(registerTextWatcher);
+        password.addTextChangedListener(registerTextWatcher);
+
+
         mAuth = FirebaseAuth.getInstance();
 
         reg_old_user.setOnClickListener(new View.OnClickListener() {

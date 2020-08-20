@@ -11,12 +11,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginTop="80sp"
+        android:layout_marginTop="40sp"
         android:layout_gravity="center"
         android:fontFamily="@font/adamina"
         android:layout_marginBottom="20dp"
         android:text="Instagram"
-        android:textColor="#123456"
+        android:textColor="#0C0C0C"
         android:textSize="50sp">
     </TextView>
 
@@ -24,8 +24,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/reg_username"
+        android:inputType="text"
         android:background="@drawable/edit_text_background"
-        android:padding="10dp"
+        android:padding="8dp"
         android:textSize="20sp"
         android:layout_margin="10dp"
         android:hint="Username">
@@ -36,8 +37,10 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/reg_fullname"
+        android:inputType="textPersonName"
+        android:maxLength="15"
         android:background="@drawable/edit_text_background"
-        android:padding="10dp"
+        android:padding="8dp"
         android:textSize="20sp"
         android:layout_margin="10dp"
         android:hint="FullName">
@@ -48,8 +51,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/reg_email"
+        android:inputType="textEmailAddress"
         android:background="@drawable/edit_text_background"
-        android:padding="10dp"
+        android:padding="8dp"
         android:textSize="20sp"
         android:layout_margin="10dp"
         android:hint="Email">
@@ -60,8 +64,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/reg_password"
+        android:inputType="textPassword"
         android:background="@drawable/edit_text_background"
-        android:padding="10dp"
+        android:padding="8dp"
         android:textSize="20sp"
         android:layout_margin="10dp"
         android:hint="Password">
@@ -83,7 +88,9 @@
         android:layout_margin="10dp"
         android:text="Register"
         android:padding="20dp"
+        android:fontFamily="@font/adamina"
         android:id="@+id/btn_new_user"
+        android:textColor="#FFFFFF"
         android:background="@drawable/btn_background">
 
     </Button>
@@ -94,6 +101,8 @@
         android:layout_margin="10dp"
         android:text="Already have an account"
         android:id="@+id/btn_old_user"
+        android:fontFamily="@font/adamina"
+        android:textColor="#FFFFFF"
         android:padding="20dp"
         android:background="@drawable/btn_background">
 

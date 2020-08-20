@@ -1,5 +1,6 @@
 package com.example.instagramclone;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -30,6 +31,8 @@ private BottomNavigationView bottomNavigationView;
 
                 case R.id.nav_add:
                     selectedFragment = new AddFragment();
+                    startActivity(new Intent(HomeActivity.this, PostActivity.class));
+
                     break;
 
 
