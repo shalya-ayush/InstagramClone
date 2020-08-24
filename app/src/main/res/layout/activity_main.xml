@@ -35,8 +35,6 @@
             android:background="@drawable/btn_background"
             android:fontFamily="@font/adamina"
             android:text="Login"
-            android:onClick="callLoginScreen"
-            android:transitionName="transition_login"
             android:textColor="#FFFFFF"
             android:textFontWeight="700">
 

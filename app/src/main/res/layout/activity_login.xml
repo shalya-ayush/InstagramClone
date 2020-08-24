@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:padding="20dp"
     android:layout_height="match_parent"
-    android:transitionName="transition_login"
     tools:context=".LoginActivity">
 
     <LinearLayout
@@ -68,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:buttonTint="#2196F3"
-                android:text="Remenber Me">
+                android:text="Remember Me">
 
             </CheckBox>
 
@@ -76,8 +75,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:background="#00"
-                android:text="Forget Password">
+                android:background="?android:attr/windowBackground"
+                android:text="Forgot Password">
 
             </Button>
         </RelativeLayout>
