@@ -7,9 +7,11 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity {
-      private Button login;
-      private Button register;
+    private Button login;
+    private Button register;
 
 
     @Override
@@ -33,9 +35,16 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(i);
-                finish();
             }
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            startActivity(new Intent(MainActivity.this, HomeActivity.class));
+            finish();
+        }
+    }
 }

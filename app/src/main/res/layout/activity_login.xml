@@ -14,43 +14,44 @@
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Username/Email"
-            app:boxStrokeColor="@color/colorPrimaryDark"
+            android:id="@+id/person_email"
             app:boxStrokeWidthFocused="2dp"
+            android:hint="Username/Email"
             app:endIconMode="clear_text"
-            app:hintTextColor="#151617"
-            app:startIconDrawable="@drawable/ic_account"
-            app:startIconTint="#123446">
+            android:textColorHint="#111112"
+            app:endIconTint="#000000"
+            app:hintTextColor="#0C0C0C"
+            app:startIconDrawable="@drawable/ic_person"
+            app:startIconTint="#070707">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/allura"
-                android:inputType="text|textPersonName"
+                android:fontFamily="@font/adamina"
+                android:inputType="textPersonName"
                 android:textColor="#171819">
 
             </com.google.android.material.textfield.TextInputEditText>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="EnterPassword"
-            app:boxStrokeColor="@color/colorPrimaryDark"
+            android:id="@+id/password"
             app:boxStrokeWidthFocused="2dp"
+            android:hint="Password"
+            app:endIconTint="#0C0C0C"
             app:endIconMode="password_toggle"
-            app:hintTextColor="#151617"
-            app:startIconDrawable="@drawable/ic_account"
-            app:startIconTint="#123446">
+            app:hintTextColor="#070707"
+            app:startIconDrawable="@drawable/ic_lock"
+            app:startIconTint="#0E0E0E">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/allura"
+                android:fontFamily="@font/adamina"
                 android:inputType="textPassword"
                 android:textColor="#171819">
 
@@ -65,6 +66,7 @@
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/remember_me"
                 android:layout_centerVertical="true"
                 android:buttonTint="#2196F3"
                 android:text="Remember Me">
@@ -75,7 +77,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:background="?android:attr/windowBackground"
+                android:id="@+id/forgot_password"
+                android:background="@android:color/transparent"
                 android:text="Forgot Password">
 
             </Button>
@@ -85,6 +88,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:id="@+id/login"
             android:background="@drawable/btn_background"
             android:elevation="8dp"
             android:text="Login"

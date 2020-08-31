@@ -10,6 +10,7 @@
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
+        android:layout_above="@+id/app_bar"
         android:layout_height="match_parent">
 
     </FrameLayout>
@@ -20,17 +21,19 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
 
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="?android:attr/windowBackground"
+            app:itemIconTint="@color/nav_colors"
+            app:labelVisibilityMode="unlabeled"
+            app:menu="@menu/bottom_navigation">
+
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
+
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navbar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="?android:attr/windowBackground"
-        app:itemIconTint="@color/nav_colors"
-        app:labelVisibilityMode="unlabeled"
-        app:menu="@menu/bottom_navigation">
 
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
 </RelativeLayout>

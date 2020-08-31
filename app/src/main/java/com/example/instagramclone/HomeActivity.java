@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.instagramclone.Fragments.AddFragment;
 import com.example.instagramclone.Fragments.HomeFragment;
 import com.example.instagramclone.Fragments.NotificationsFragment;
 import com.example.instagramclone.Fragments.ProfileFragment;
@@ -16,7 +15,19 @@ import com.example.instagramclone.Fragments.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
-private BottomNavigationView bottomNavigationView;
+    private BottomNavigationView bottomNavigationView;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home);
+        bottomNavigationView = findViewById(R.id.bottom_navbar);
+        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+    }
+
+    // Method for Bottom Navigation View
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -30,7 +41,7 @@ private BottomNavigationView bottomNavigationView;
                     break;
 
                 case R.id.nav_add:
-                    selectedFragment = new AddFragment();
+                    selectedFragment = null;
                     startActivity(new Intent(HomeActivity.this, PostActivity.class));
 
                     break;
@@ -46,17 +57,10 @@ private BottomNavigationView bottomNavigationView;
                     break;
 
             }
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+            if (selectedFragment != null) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+            }
             return true;
         }
     };
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        bottomNavigationView = findViewById(R.id.bottom_navbar);
-        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
-    }
 }

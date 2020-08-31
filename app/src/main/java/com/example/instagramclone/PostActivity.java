@@ -28,9 +28,9 @@ import com.google.firebase.storage.StorageTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class PostActivity extends AppCompatActivity {
-    StorageReference filePath;
     AutoCompleteTextView description;
     private ImageView closeButton;
     private TextView postButton;
@@ -42,7 +42,7 @@ public class PostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
-        filePath = FirebaseStorage.getInstance().getReference("Posts");
+        Objects.requireNonNull(getSupportActionBar()).hide();
         closeButton = findViewById(R.id.post_close);
         postButton = findViewById(R.id.post_text);
         uploadImage = findViewById(R.id.post_imageView);
@@ -66,57 +66,7 @@ public class PostActivity extends AppCompatActivity {
         CropImage.activity().start(PostActivity.this);
     }
 
-    private void uploadFile() {
-        final ProgressDialog pd = new ProgressDialog(this);
-        pd.setMessage("Uploading");
-        pd.show();
-        if (imageUri != null) {
-            filePath.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
-            StorageTask uploadTask = filePath.putFile(imageUri);
-            uploadTask.continueWith(new Continuation() {
-                @Override
-                public Object then(@NonNull Task task) throws Exception {
-                    if (!task.isSuccessful()) {
-                        throw task.getException();
-                    }
-                    return filePath.getDownloadUrl();
-                }
-            }).addOnCompleteListener(new OnCompleteListener() {
-                @Override
-                public void onComplete(@NonNull Task task) {
-                    Uri downloaUri = (Uri) task.getResult();
-                    if (downloaUri == null) throw new AssertionError();
-                    imageUrl = downloaUri.toString();
-                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
-                    String postId = reference.push().getKey();
-                    HashMap<String, Object> map = new HashMap<>();
-                    map.put("PostId", postId);
-                    map.put("ImageUrl", imageUrl);
-                    map.put("author", FirebaseAuth.getInstance().getCurrentUser().getUid());
-                    assert postId != null;
-                    reference.child(postId).setValue(map);
-                    Toast.makeText(PostActivity.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
-                    pd.dismiss();
-                    startActivity(new Intent(PostActivity.this, HomeActivity.class));
-                }
-
-
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(PostActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        } else {
-            Toast.makeText(this, "Nothing is selected", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private String getFileExtension(Uri uri) {
-        return MimeTypeMap.getSingleton().getExtensionFromMimeType(this.getContentResolver().getType(uri));
-    }
-
+    // Method for Crop Image Activity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -132,4 +82,63 @@ public class PostActivity extends AppCompatActivity {
         }
 
     }
+
+    // Method to upload image in the database
+    private void uploadFile() {
+        final ProgressDialog pd = new ProgressDialog(this);
+        pd.setMessage("Uploading");
+        pd.show();
+        if (imageUri != null) {
+            final StorageReference filePath = FirebaseStorage.getInstance().getReference("Posts").child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
+
+            StorageTask uploadTask = filePath.putFile(imageUri);
+            uploadTask.continueWithTask(new Continuation() {
+                @Override
+                public Object then(@NonNull Task task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+                    return filePath.getDownloadUrl();
+                }
+
+            }).addOnCompleteListener(new OnCompleteListener() {
+                @Override
+                public void onComplete(@NonNull Task task) {
+                    Uri downloadUri = (Uri) task.getResult();
+                    if (downloadUri == null) throw new AssertionError();
+                    imageUrl = downloadUri.toString();
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
+                    String postId = reference.push().getKey();
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put("PostId", postId);
+                    map.put("ImageUrl", imageUrl);
+                    map.put("description", description.getText().toString());
+                    map.put("author", FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+                    assert postId != null;
+                    reference.child(postId).setValue(map);
+                    pd.dismiss();
+                    Toast.makeText(PostActivity.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
+
+                    startActivity(new Intent(PostActivity.this, HomeActivity.class));
+                    finish();
+                }
+
+
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(PostActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } else {
+            Toast.makeText(this, "Nothing is selected", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // Method to take the extension of the uploaded Image
+    private String getFileExtension(Uri uri) {
+        return MimeTypeMap.getSingleton().getExtensionFromMimeType(this.getContentResolver().getType(uri));
+    }
+
 }

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="15dp"
     android:layout_height="match_parent"
@@ -17,61 +18,100 @@
         android:layout_marginBottom="20dp"
         android:text="Instagram"
         android:textColor="#0C0C0C"
-        android:textSize="50sp">
-    </TextView>
+        android:textSize="50sp"></TextView>
 
-    <EditText
-        android:layout_width="fill_parent"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/register_username"
         android:layout_height="wrap_content"
-        android:id="@+id/reg_username"
-        android:inputType="text"
-        android:background="@drawable/edit_text_background"
-        android:padding="8dp"
-        android:textSize="20sp"
-        android:layout_margin="10dp"
-        android:hint="Username">
+        android:layout_width="match_parent"
+        android:hint="Username"
+        android:textColorHint="#111112"
+        app:boxStrokeWidthFocused="2dp"
+        app:endIconMode="clear_text"
+        app:endIconTint="#000000"
+        app:hintTextColor="#0C0C0C"
+        app:startIconDrawable="@drawable/ic_create"
+        app:startIconTint="#070707">
 
-    </EditText>
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/adamina"
+            android:inputType="textPersonName"
+            android:textColor="#171819">
 
-    <EditText
-        android:layout_width="fill_parent"
+        </com.google.android.material.textfield.TextInputEditText>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/register_fullname"
         android:layout_height="wrap_content"
-        android:id="@+id/reg_fullname"
-        android:inputType="textPersonName"
-        android:maxLength="15"
-        android:background="@drawable/edit_text_background"
-        android:padding="8dp"
-        android:textSize="20sp"
-        android:layout_margin="10dp"
-        android:hint="FullName">
+        android:layout_width="match_parent"
+        android:hint="Full name"
+        android:textColorHint="#111112"
+        app:boxStrokeWidthFocused="2dp"
+        app:endIconMode="clear_text"
+        app:endIconTint="#000000"
+        app:hintTextColor="#0C0C0C"
+        app:startIconDrawable="@drawable/ic_person"
+        app:startIconTint="#070707">
 
-    </EditText>
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/adamina"
+            android:inputType="textPersonName"
+            android:textColor="#171819">
 
-    <EditText
-        android:layout_width="fill_parent"
+        </com.google.android.material.textfield.TextInputEditText>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/register_email"
         android:layout_height="wrap_content"
-        android:id="@+id/reg_email"
-        android:inputType="textEmailAddress"
-        android:background="@drawable/edit_text_background"
-        android:padding="8dp"
-        android:textSize="20sp"
-        android:layout_margin="10dp"
-        android:hint="Email">
+        android:layout_width="match_parent"
+        android:hint="Email"
+        android:textColorHint="#111112"
+        app:boxStrokeWidthFocused="2dp"
+        app:endIconMode="clear_text"
+        app:endIconTint="#000000"
+        app:hintTextColor="#0C0C0C"
+        app:startIconDrawable="@drawable/ic_email"
+        app:startIconTint="#070707">
 
-    </EditText>
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/adamina"
+            android:inputType="textPersonName"
+            android:textColor="#171819">
 
-    <EditText
-        android:layout_width="fill_parent"
+        </com.google.android.material.textfield.TextInputEditText>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/register_password"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/reg_password"
-        android:inputType="textPassword"
-        android:background="@drawable/edit_text_background"
-        android:padding="8dp"
-        android:textSize="20sp"
-        android:layout_margin="10dp"
-        android:hint="Password">
+        android:hint="Password"
+        android:textColorHint="#111112"
+        app:boxStrokeWidthFocused="2dp"
+        app:endIconMode="password_toggle"
+        app:endIconTint="#000000"
+        app:hintTextColor="#0C0C0C"
+        app:startIconDrawable="@drawable/ic_lock"
+        app:startIconTint="#070707">
 
-    </EditText>
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/adamina"
+            android:inputType="textPersonName"
+            android:textColor="#171819">
+
+        </com.google.android.material.textfield.TextInputEditText>
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <ProgressBar
         android:id="@+id/progress_bar"

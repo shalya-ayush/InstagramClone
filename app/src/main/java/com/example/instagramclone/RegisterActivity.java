@@ -2,12 +2,9 @@ package com.example.instagramclone;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -18,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -26,10 +24,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
-    private EditText username;
-    private EditText fullname;
-    private EditText email;
-    private EditText password;
+    private TextInputLayout username;
+    private TextInputLayout fullname;
+    private TextInputLayout email;
+    private TextInputLayout password;
     private Button reg_new_user;
     private Button reg_old_user;
     private ProgressBar progressBar;
@@ -38,46 +36,46 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
 
-    //Textwatcher method to disable the button if any of the input is empty.
-    private TextWatcher registerTextWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            String nameInput = username.getText().toString().trim();
-            String fullNameInput = fullname.getText().toString().trim();
-            String emailInput = email.getText().toString().trim();
-            String passwordInput = password.getText().toString().trim();
-            reg_new_user.setEnabled(!nameInput.isEmpty() && !fullNameInput.isEmpty() && !emailInput.isEmpty() && !passwordInput.isEmpty());
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-        }
-    };
+//    //Textwatcher method to disable the button if any of the input is empty.
+//    private TextWatcher registerTextWatcher = new TextWatcher() {
+//        @Override
+//        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//        }
+//
+//        @Override
+//        public void onTextChanged(CharSequence s, int start, int before, int count) {
+//            String nameInput = username.getText().toString().trim();
+//            String fullNameInput = fullname.getText().toString().trim();
+//            String emailInput = email.getText().toString().trim();
+//            String passwordInput = password.getText().toString().trim();
+//            reg_new_user.setEnabled(!nameInput.isEmpty() && !fullNameInput.isEmpty() && !emailInput.isEmpty() && !passwordInput.isEmpty());
+//
+//        }
+//
+//        @Override
+//        public void afterTextChanged(Editable s) {
+//
+//        }
+//    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        username = findViewById(R.id.reg_username);
-        fullname = findViewById(R.id.reg_fullname);
-        email = findViewById(R.id.reg_email);
-        password = findViewById(R.id.reg_password);
+        username = findViewById(R.id.register_username);
+        fullname = findViewById(R.id.register_fullname);
+        email = findViewById(R.id.register_email);
+        password = findViewById(R.id.register_password);
         reg_new_user = findViewById(R.id.btn_new_user);
         reg_old_user = findViewById(R.id.btn_old_user);
         progressBar = findViewById(R.id.progress_bar);
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        // To disable the button , if any of the input field is Empty
-        username.addTextChangedListener(registerTextWatcher);
-        fullname.addTextChangedListener(registerTextWatcher);
-        email.addTextChangedListener(registerTextWatcher);
-        password.addTextChangedListener(registerTextWatcher);
+//        // To disable the button , if any of the input field is Empty
+//        username.addTextChangedListener(registerTextWatcher);
+//        fullname.addTextChangedListener(registerTextWatcher);
+//        email.addTextChangedListener(registerTextWatcher);
+//        password.addTextChangedListener(registerTextWatcher);
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -93,10 +91,10 @@ public class RegisterActivity extends AppCompatActivity {
         reg_new_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String getUsername = username.getText().toString();
-                String getFullname = fullname.getText().toString();
-                String getEmail = email.getText().toString();
-                String getPassword = password.getText().toString();
+                String getUsername = username.getEditText().getText().toString();
+                String getFullname = fullname.getEditText().getText().toString();
+                String getEmail = email.getEditText().getText().toString();
+                String getPassword = password.getEditText().getText().toString();
                 if (TextUtils.isEmpty(getUsername) || TextUtils.isEmpty(getFullname) ||
                         TextUtils.isEmpty(getEmail) || TextUtils.isEmpty(getPassword)) {
                     Toast.makeText(RegisterActivity.this, "Please Fill all the fields", Toast.LENGTH_SHORT).show();
@@ -134,6 +132,7 @@ public class RegisterActivity extends AppCompatActivity {
                             Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
                             intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TASK | intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
+                            finish();
                         }
                     }
                 });
