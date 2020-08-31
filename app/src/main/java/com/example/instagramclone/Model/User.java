@@ -1,19 +1,23 @@
 package com.example.instagramclone.Model;
-
+// User class to show user in the search fragment
 public class User {
     private String username;
-    private String fullname;
+    private String fullName;
     private String email;
+    private String imageUrl;
+    private String bio;
     private String id;
 
     public User() {
 
     }
 
-    public User(String username, String fullname, String email, String id) {
+    public User(String username, String fullName, String email, String imageUrl, String bio, String id) {
         this.username = username;
-        this.fullname = fullname;
+        this.fullName = fullName;
         this.email = email;
+        this.imageUrl = imageUrl;
+        this.bio = bio;
         this.id = id;
     }
 
@@ -25,12 +29,12 @@ public class User {
         this.username = username;
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getEmail() {
@@ -39,6 +43,22 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
     public String getId() {

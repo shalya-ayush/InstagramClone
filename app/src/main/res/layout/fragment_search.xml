@@ -17,6 +17,7 @@
             android:id="@+id/search_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:elevation="8dp"
             android:background="?android:attr/windowBackground">
 
             <ImageView
@@ -29,6 +30,7 @@
             <AutoCompleteTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/search_name"
                 android:background="?android:attr/windowBackground"
                 android:hint="Search..."
                 android:padding="10dp">

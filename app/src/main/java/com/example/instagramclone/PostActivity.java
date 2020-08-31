@@ -110,10 +110,10 @@ public class PostActivity extends AppCompatActivity {
                     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
                     String postId = reference.push().getKey();
                     HashMap<String, Object> map = new HashMap<>();
-                    map.put("PostId", postId);
-                    map.put("ImageUrl", imageUrl);
+                    map.put("postId", postId);
+                    map.put("imageUrl", imageUrl);
                     map.put("description", description.getText().toString());
-                    map.put("author", FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+                    map.put("author", FirebaseAuth.getInstance().getCurrentUser().getUid());
                     assert postId != null;
                     reference.child(postId).setValue(map);
                     pd.dismiss();

@@ -120,8 +120,10 @@ public class RegisterActivity extends AppCompatActivity {
             public void onSuccess(AuthResult authResult) {
                 HashMap<String, Object> map = new HashMap<>();
                 map.put("username", username);
-                map.put("fullname", fullname);
+                map.put("fullName", fullname);
                 map.put("email", email);
+                map.put("bio", "");
+                map.put("imageUrl", "default");
                 map.put("id", mAuth.getCurrentUser().getUid());
                 databaseReference.child("Users").child(mAuth.getCurrentUser().getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
