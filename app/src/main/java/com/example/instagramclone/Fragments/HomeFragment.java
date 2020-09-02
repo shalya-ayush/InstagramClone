@@ -72,15 +72,16 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-
+// Method to read the post from the database
     private void readPosts() {
         FirebaseDatabase.getInstance().getReference().child("Posts").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 postList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Post post = snapshot.getValue(Post.class);
+                    Post post = dataSnapshot.getValue(Post.class);
                     for (String id : followingList) {
+                        assert post != null;
                         if (post.getAuthor().equals(id)) {
                             postList.add(post);
                         }

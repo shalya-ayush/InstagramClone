@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerVertical="true"
+    android:padding="10dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profileImage"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_account"
+        app:civ_border_color="#673AB7"
+        app:civ_border_width="2dp" />
+
+    <TextView
+        android:id="@+id/profileName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_toEndOf="@+id/profileImage"
+        android:text="Ayyush"
+        android:textColor="#000000"
+        android:textFontWeight="700">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/comment_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_toEndOf="@+id/profileName"
+        android:text="Rasode mein kunn the"
+        android:textColor="#000000"
+        android:textFontWeight="100">
+
+    </TextView>
+
+    <ImageView
+        android:id="@+id/like_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="5dp"
+        android:layout_marginEnd="14dp"
+        android:src="@drawable/ic_love" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/comment_text"
+        android:layout_marginTop="5dp"
+        android:background="#16000000">
+
+    </View>
+
+
+</RelativeLayout>

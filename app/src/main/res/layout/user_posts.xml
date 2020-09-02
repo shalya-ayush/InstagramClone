@@ -20,9 +20,8 @@
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:id="@+id/home_profileImage"
+                android:id="@+id/home_profileImage">
 
-                android:src="@drawable/ic_account">
 
             </ImageView>
         </androidx.cardview.widget.CardView>
@@ -35,7 +34,6 @@
             android:layout_toEndOf="@+id/user_image"
             android:fontFamily="@font/adamina"
             android:maxLines="1"
-            android:text="Ayush Shalya"
             android:textColor="#000000"
             android:textSize="20sp">
 
@@ -46,8 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:id="@+id/home_moreSign"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_more">
+            android:layout_centerVertical="true">
 
         </ImageView>
 
@@ -113,7 +110,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/home_number_of_likes"
-        android:text="728 likes"
         android:padding="5dp"
         android:textColor="#000000"
         android:textSize="16sp">
@@ -125,7 +121,6 @@
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:id="@+id/home_caption"
-        android:text="This is my first photo."
         android:textColor="#000000"
         android:textSize="13sp">
 

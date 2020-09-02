@@ -1,6 +1,7 @@
 package com.example.instagramclone.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.instagramclone.CommentActivity;
 import com.example.instagramclone.Model.Post;
 import com.example.instagramclone.Model.User;
 import com.example.instagramclone.R;
@@ -31,6 +33,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public PostAdapter(Context mContext, List<Post> mPost) {
         this.mContext = mContext;
         this.mPost = mPost;
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
     }
 
     @NonNull
@@ -42,8 +46,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        Post post = mPost.get(position);
+        final Post post = mPost.get(position);
         Picasso.get().load(post.getImageUrl()).into(holder.postImage);
         holder.caption.setText(post.getDescription());
         FirebaseDatabase.getInstance().getReference().child("Users").child(post.getAuthor()).addValueEventListener(new ValueEventListener() {
@@ -64,6 +67,38 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
             }
         });
+        isLiked(post.getPostId(), holder.like);
+        noOfLikes(post.getPostId(), holder.numberOfLikes);
+// To add the like feature
+        holder.like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // If  image is not already liked then on click it will be liked
+                if (holder.like.getTag().equals("like")) {
+                    FirebaseDatabase.getInstance().getReference().child("Likes").
+                            child(post.getPostId()).child(firebaseUser.getUid()).setValue(true);
+
+                }
+                // If image is already liked then it will be removed from liked
+                else {
+                    FirebaseDatabase.getInstance().getReference().child("Likes").
+                            child(post.getPostId()).child(firebaseUser.getUid()).removeValue();
+
+                }
+            }
+        });
+
+        holder.comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, CommentActivity.class);
+                intent.putExtra("postId", post.getPostId());
+                intent.putExtra("authorId", post.getAuthor());
+                mContext.startActivity(intent);
+
+            }
+        });
+
 
     }
 
@@ -101,5 +136,42 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             caption = itemView.findViewById(R.id.home_caption);
 
         }
+    }
+
+    //Method to check image is liked or not
+    private void isLiked(String postId, final ImageView imageView) {
+        FirebaseDatabase.getInstance().getReference().child("Likes").child(postId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.child(firebaseUser.getUid()).exists()) {
+
+                    imageView.setImageResource(R.drawable.ic_liked);
+                    imageView.setTag("liked");
+                } else {
+                    imageView.setImageResource(R.drawable.ic_love);
+                    imageView.setTag("like");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    // Method to count no of likes
+    private void noOfLikes(String postId, final TextView textView) {
+        FirebaseDatabase.getInstance().getReference().child("Likes").child(postId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                textView.setText(snapshot.getChildrenCount() + " likes");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

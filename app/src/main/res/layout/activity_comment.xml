@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CommentActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/comments_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/comments_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bottom_comments"
+        android:layout_below="@id/comments_toolbar">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <RelativeLayout
+        android:id="@+id/bottom_comments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="5dp"
+        android:padding="5dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            app:cardCornerRadius="35dp">
+
+            <ImageView
+                android:id="@+id/comment_profileImage"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/ic_account" />
+        </androidx.cardview.widget.CardView>
+
+        <EditText
+            android:id="@+id/add_comments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/card"
+            android:background="@android:color/transparent"
+            android:padding="5dp"
+            android:text="Add your comments here"
+            android:textColor="#000000">
+
+        </EditText>
+
+        <TextView
+            android:id="@+id/post_comments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:text="POST"
+            android:textColor="@color/colorPrimaryDark" />
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
