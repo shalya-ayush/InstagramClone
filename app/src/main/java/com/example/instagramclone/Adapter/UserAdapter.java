@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
@@ -62,6 +63,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                 if (holder.followButton.getText().toString().equals("Follow")) {
                     FirebaseDatabase.getInstance().getReference().child("Follow").child(firebaseUser.getUid())
                             .child("Following").child(user.getId()).setValue(true);
+                    addNotifications(user.getId());
                     FirebaseDatabase.getInstance().getReference().child("Follow").child(user.getId()).
                             child("Followers").child(firebaseUser.getUid()).setValue(true);
 
@@ -100,6 +102,15 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         });
     }
 
+    private void addNotifications(String userId) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("userId", userId);
+        map.put("text", "started following you.");
+        map.put("postId", "");
+        map.put("isPost", false);
+        FirebaseDatabase.getInstance().getReference().child("Notifications").child(firebaseUser.getUid()).push().setValue(map);
+    }
+
     @Override
     public int getItemCount() {
         return mUser.size();     //it will return the  number of the user in the database;
@@ -121,4 +132,5 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             followButton = itemView.findViewById(R.id.btn_folow);
         }
     }
+
 }
