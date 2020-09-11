@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        getSupportActionBar().hide();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         login = findViewById(R.id.btn_login);
@@ -28,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
                 Intent register_intent = new Intent(MainActivity.this, RegisterActivity.class);
                 register_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(register_intent);
+                finish();
+
             }
         });
         login.setOnClickListener(new View.OnClickListener() {
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(i);
+                finish();
             }
         });
     }

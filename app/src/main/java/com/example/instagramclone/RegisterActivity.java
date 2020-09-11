@@ -31,33 +31,9 @@ public class RegisterActivity extends AppCompatActivity {
     private Button reg_new_user;
     private Button reg_old_user;
     private ProgressBar progressBar;
-
     private DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
 
-
-//    //Textwatcher method to disable the button if any of the input is empty.
-//    private TextWatcher registerTextWatcher = new TextWatcher() {
-//        @Override
-//        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//        }
-//
-//        @Override
-//        public void onTextChanged(CharSequence s, int start, int before, int count) {
-//            String nameInput = username.getText().toString().trim();
-//            String fullNameInput = fullname.getText().toString().trim();
-//            String emailInput = email.getText().toString().trim();
-//            String passwordInput = password.getText().toString().trim();
-//            reg_new_user.setEnabled(!nameInput.isEmpty() && !fullNameInput.isEmpty() && !emailInput.isEmpty() && !passwordInput.isEmpty());
-//
-//        }
-//
-//        @Override
-//        public void afterTextChanged(Editable s) {
-//
-//        }
-//    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,13 +47,6 @@ public class RegisterActivity extends AppCompatActivity {
         reg_old_user = findViewById(R.id.btn_old_user);
         progressBar = findViewById(R.id.progress_bar);
         databaseReference = FirebaseDatabase.getInstance().getReference();
-//        // To disable the button , if any of the input field is Empty
-//        username.addTextChangedListener(registerTextWatcher);
-//        fullname.addTextChangedListener(registerTextWatcher);
-//        email.addTextChangedListener(registerTextWatcher);
-//        password.addTextChangedListener(registerTextWatcher);
-
-
         mAuth = FirebaseAuth.getInstance();
 
         reg_old_user.setOnClickListener(new View.OnClickListener() {
@@ -91,20 +60,17 @@ public class RegisterActivity extends AppCompatActivity {
         reg_new_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String getUsername = username.getEditText().getText().toString();
+                String getUsername = username.getEditText().getText().toString().trim();
                 String getFullname = fullname.getEditText().getText().toString();
                 String getEmail = email.getEditText().getText().toString();
                 String getPassword = password.getEditText().getText().toString();
                 if (TextUtils.isEmpty(getUsername) || TextUtils.isEmpty(getFullname) ||
                         TextUtils.isEmpty(getEmail) || TextUtils.isEmpty(getPassword)) {
                     Toast.makeText(RegisterActivity.this, "Please Fill all the fields", Toast.LENGTH_SHORT).show();
-                }
-                if (getPassword.length() < 6) {
+                } else if (getPassword.length() < 6) {
                     password.setError("6 characters required");
-                }
-                if (getUsername.contains(" ")) {
+                } else if (getUsername.contains(" ")) {
                     username.setError("Must not contain white spaces");
-                    Toast.makeText(RegisterActivity.this, "Username must not have whitespaces", Toast.LENGTH_SHORT).show();
                 } else {
                     registerUser(getUsername, getFullname, getEmail, getPassword);
                 }
@@ -135,6 +101,8 @@ public class RegisterActivity extends AppCompatActivity {
                             intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TASK | intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                             finish();
+                        } else {
+                            Toast.makeText(RegisterActivity.this, "Empty credentials not allowed", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

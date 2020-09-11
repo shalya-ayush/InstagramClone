@@ -1,5 +1,6 @@
 package com.example.instagramclone;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -31,7 +32,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        getSupportActionBar().hide();
         mAuth = FirebaseAuth.getInstance();
         email = findViewById(R.id.person_email);
         password = findViewById(R.id.password);
@@ -44,15 +44,12 @@ public class LoginActivity extends AppCompatActivity {
                 getEmail = email.getEditText().getText().toString();
                 getPassword = password.getEditText().getText().toString();
                 if (getEmail.isEmpty() | getPassword.isEmpty()) {
-                    email.setError("Empty Credentials");
-                    password.setError("Empty Credentials");
+                    Toast.makeText(LoginActivity.this, "Empty credentials", Toast.LENGTH_SHORT).show();
                 } else if (getPassword.length() < 6) {
                     password.setError("Password too short");
                 } else {
                     email.setError(null);
-
                     password.setError(null);
-
                     loginUser(getEmail, getPassword);
                 }
             }
@@ -60,11 +57,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser(String email, String password) {
+        final ProgressDialog pd = new ProgressDialog(this);
+        pd.setMessage("Please wait...");
+        pd.show();
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+                pd.dismiss();
                 if (task.isSuccessful()) {
-                    Toast.makeText(LoginActivity.this, "Registered successfully", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
@@ -74,6 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                pd.dismiss();
                 Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

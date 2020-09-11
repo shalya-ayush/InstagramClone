@@ -22,10 +22,23 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-//        getSupportActionBar().hide();
         bottomNavigationView = findViewById(R.id.bottom_navbar);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+        //to get the value from other activity
+        // to see the profile of user
+        Bundle intent = getIntent().getExtras();
+        if (intent != null) {
+            String profileId = intent.getString("authorId");
+            getSharedPreferences("PROFILE", MODE_PRIVATE).edit().putString("profileId", profileId).apply();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
+            bottomNavigationView.setSelectedItemId(R.id.nav_profile);
+        } else {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+
+        }
+
+
     }
 
     // Method for Bottom Navigation View
@@ -64,4 +77,5 @@ public class HomeActivity extends AppCompatActivity {
             return true;
         }
     };
+
 }

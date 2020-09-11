@@ -28,7 +28,6 @@ import com.google.firebase.storage.StorageTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.util.HashMap;
-import java.util.Objects;
 
 public class PostActivity extends AppCompatActivity {
     AutoCompleteTextView description;
@@ -42,7 +41,6 @@ public class PostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
-        Objects.requireNonNull(getSupportActionBar()).hide();
         closeButton = findViewById(R.id.post_close);
         postButton = findViewById(R.id.post_text);
         uploadImage = findViewById(R.id.post_imageView);
@@ -76,7 +74,6 @@ public class PostActivity extends AppCompatActivity {
             imageUri = result.getUri();
             uploadImage.setImageURI(imageUri);
         } else {
-            Toast.makeText(this, "Try Again", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(PostActivity.this, HomeActivity.class));
             finish();
         }
