@@ -8,15 +8,16 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/user_image"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_margin="10dp"
-        app:cardCornerRadius="60dp">
+        app:cardCornerRadius="50dp">
 
         <ImageView
             android:id="@+id/user_profile_image"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/edit_text_background"
             android:src="@drawable/ic_account">
 
         </ImageView>
@@ -46,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginVertical="10dp"
+            android:layout_marginVertical="5dp"
             android:maxLines="1"
             android:text="Full Name"
             android:textSize="14sp">
@@ -61,10 +62,16 @@
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_marginEnd="20dp"
-        android:background="#ECD938"
+        android:background="@drawable/profile_btn_background"
         android:text="Follow"
         android:textColor="#0C0C0C"
         android:visibility="gone">
 
     </Button>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/user_image"
+        android:background="#B9BBBD" />
 </RelativeLayout>

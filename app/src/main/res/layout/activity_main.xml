@@ -1,57 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relative_layout"
     android:layout_width="match_parent"
+    android:layout_gravity="center"
     android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp"
     tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/image_insta"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/instagram" />
 
     <TextView
         android:id="@+id/insta_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/adamina"
-        android:layout_centerInParent="true"
         android:text="Instagram"
         android:textColor="#123456"
         android:textSize="50sp">
 
     </TextView>
 
-    <LinearLayout
+    <Button
+        android:id="@+id/btn_login"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/insta_text"
         android:layout_margin="10dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:background="@drawable/btn_background"
+        android:fontFamily="@font/adamina"
+        android:text="Login"
+        android:textColor="#FFFFFF"
+        android:textFontWeight="700">
 
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/btn_background"
-            android:fontFamily="@font/adamina"
-            android:text="Login"
-            android:textColor="#FFFFFF"
-            android:textFontWeight="700">
+    </Button>
 
-        </Button>
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/btn_background"
+        android:fontFamily="@font/adamina"
+        android:text="Register"
+        android:textColor="#FFFFFF"
+        android:textFontWeight="700">
 
-        <Button
-            android:id="@+id/btn_register"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/btn_background"
-            android:fontFamily="@font/adamina"
-            android:text="Register"
-            android:textFontWeight="700">
+    </Button>
 
-        </Button>
-    </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>

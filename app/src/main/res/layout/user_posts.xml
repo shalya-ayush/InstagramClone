@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="5dp"
     android:orientation="vertical">
 
@@ -10,38 +10,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/user_image"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_margin="10dp"
-            app:cardCornerRadius="60dp">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/home_profileImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="2dp"
+            android:src="@drawable/instagram"
+            app:civ_border_color="#4CAF50"
+            app:civ_border_width="1dp">
 
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:id="@+id/home_profileImage">
+        </de.hdodenhof.circleimageview.CircleImageView>
 
-
-            </ImageView>
-        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/home_fullName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/user_image"
+            android:layout_toEndOf="@+id/home_profileImage"
             android:fontFamily="@font/adamina"
             android:maxLines="1"
             android:textColor="#000000"
-            android:textSize="20sp">
+            android:textSize="16sp">
 
         </TextView>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:src="@drawable/ic_more"
             android:layout_alignParentEnd="true"
             android:id="@+id/home_moreSign"
             android:layout_centerVertical="true">
@@ -52,15 +49,15 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="250dp"
         android:id="@+id/home_postImage"
-        android:layout_margin="15dp"
         android:src="@mipmap/ic_launcher">
 
     </ImageView>
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_marginTop="2dp"
         android:layout_height="wrap_content">
 
         <ImageView
@@ -125,6 +122,14 @@
         android:textSize="13sp">
 
     </TextView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="5dp"
+        android:background="#D9DADC">
+
+    </View>
 
 
 </LinearLayout>
