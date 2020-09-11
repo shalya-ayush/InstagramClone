@@ -9,6 +9,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/comments_toolbar"
         android:layout_width="match_parent"
+        android:elevation="10dp"
         android:layout_height="wrap_content" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -28,28 +29,26 @@
         android:layout_margin="5dp"
         android:padding="5dp">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card"
+        <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="35dp"
             android:layout_height="35dp"
-            app:cardCornerRadius="35dp">
+            android:id="@+id/comment_profileImage"
+            android:src="@drawable/ic_account"
+            app:civ_border_color="@color/colorAccent"
+            app:civ_border_width="2dp">
 
-            <ImageView
-                android:id="@+id/comment_profileImage"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:background="@drawable/ic_account" />
-        </androidx.cardview.widget.CardView>
+        </de.hdodenhof.circleimageview.CircleImageView>
+
 
         <EditText
             android:id="@+id/add_comments"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/card"
+            android:layout_toEndOf="@id/comment_profileImage"
             android:background="@android:color/transparent"
             android:padding="5dp"
-            android:text="Add your comments here"
+            android:hint="Add your comments"
             android:textColor="#000000">
 
         </EditText>
