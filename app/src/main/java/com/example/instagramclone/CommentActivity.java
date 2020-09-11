@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
@@ -32,12 +32,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class CommentActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
     private RecyclerView recyclerView;
     private CommentAdapter commentAdapter;
     private List<Comment> commentList;
-    private ImageView profileImage;
+    private CircleImageView profileImage;
     private EditText addComments;
     private TextView postComments;
     private String postId;
@@ -46,6 +48,9 @@ public class CommentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        postId = intent.getStringExtra("postId");
+        authorId = intent.getStringExtra("authorId");
         setContentView(R.layout.activity_comment);
         profileImage = findViewById(R.id.comment_profileImage);
         addComments = findViewById(R.id.add_comments);
@@ -54,7 +59,7 @@ public class CommentActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         commentList = new ArrayList<>();
-        commentAdapter = new CommentAdapter(getApplicationContext(), commentList);
+        commentAdapter = new CommentAdapter(getApplicationContext(), commentList, postId);
         recyclerView.setAdapter(commentAdapter);
 //        getSupportActionBar().hide();
         Toolbar toolbar = findViewById(R.id.comments_toolbar);
@@ -67,9 +72,7 @@ public class CommentActivity extends AppCompatActivity {
                 finish();
             }
         });
-        Intent intent = getIntent();
-        postId = intent.getStringExtra("postId");
-        authorId = intent.getStringExtra("authorId");
+
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         postComments.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,9 +111,13 @@ public class CommentActivity extends AppCompatActivity {
 
     private void putComments() {
         HashMap<String, Object> map = new HashMap<>();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Comments").child(postId);
+        String id = ref.push().getKey();
+        map.put("id", id);
         map.put("comment", addComments.getText().toString());
         map.put("author", firebaseUser.getUid());
-        FirebaseDatabase.getInstance().getReference().child("Comments").child(postId).push().setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+        addComments.setText("");
+        ref.child(postId).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
